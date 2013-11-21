@@ -1,0 +1,21 @@
+{
+    "name": "mnshankar/csv",
+    "description": "Easily generate CSV files in Laravel 4",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shankar Manamalkav",
+            "email": "mnshankar@yahoo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Mnshankar\\Csv": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
