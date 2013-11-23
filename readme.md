@@ -1,4 +1,4 @@
-## Easy CSV file manipulation 
+## Easy CSV file manipulation (Read, Write and Download)
 
 This is a simple utility package that helps you work with CSV files
 using a succint and readable syntax popularised by Laravel 4.
@@ -22,18 +22,18 @@ and the following in the 'alias' array
 
 ```php
 'alias' => array(
-    'CSV'             =>'Mnshankar\Csv\CSVFacade',
+    'CSV'             =>'mnshankar\Csv\CSVFacade',
 )
 ```
 Now, in your application you can work with CSV files like so:
 
 ```php
-$arr = User::all()->toArray();	//use eloquent to get array of users
+$arr = User::all()->toArray();	//use eloquent to get array of all users in 'users' table
 
 return CSV::with($arr)->put(storage_path().'/downloads/myusers.csv');	//store as csv in this path
 return CSV::fromArray($arr)->render();	//download as csv
 return CSV::fromFile(storage_path().'/downloads/my.csv')->render('abc.csv'); //render saved csv file as a downloadable document
-return CSV::with(storage_path().'/downloads/my.csv')->render('abc.csv'); //pass a file name to the download
+return CSV::with(storage_path().'/downloads/my.csv')->render('abc.csv'); //use 'with'.. same as previous
 ```    
 
 Note that the 'with' statement can accept either an array or file path and work accordingly.

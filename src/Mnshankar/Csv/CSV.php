@@ -1,5 +1,5 @@
 <?php
-namespace Mnshankar\Csv;
+namespace mnshankar\Csv;
 
 class CSV
 {
@@ -14,7 +14,11 @@ class CSV
         $this->delimiter = $delimiter;
         return $this;
     }
-    
+    public function setHeaderRowExists($headerFlag=true)
+    {
+        $this->headerRowExists=$headerFlag;
+        return $this;
+    }
     public function setEnclosure($enclosure)
     {
         $this->enclosure = $enclosure;
@@ -26,13 +30,13 @@ class CSV
         return $this;
     }
     
-    public function with($source, $mode = 'r+')
+    public function with($source, $headerRowExists = true, $mode = 'r+')
     {
         if (is_array($source)) { // fromArray
             $this->source = $source;
         } else 
             if (is_string($source)) { // fromfile
-                $this->fromFile($source, $mode);
+                $this->fromFile($source, $headerRowExists, $mode);
             } else
                 throw new \Exception('Source must be either an array or a file name');
         
@@ -95,6 +99,6 @@ class CSV
         ob_start(); // buffer the output ...
         $this->handle = fopen('php://output', 'r+');    
         $this->getCSV();    
-        return ob_get_clean(); // ... then return it as a string!
+        return ob_get_clean(); //then return it as a string
     }
 }

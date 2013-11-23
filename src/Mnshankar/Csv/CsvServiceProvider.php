@@ -1,4 +1,4 @@
-<?php namespace Mnshankar\Csv;
+<?php namespace mnshankar\Csv;
 
 use Illuminate\Support\ServiceProvider;
 
