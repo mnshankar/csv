@@ -1,8 +1,8 @@
-<?php namespace mnshankar\Csv;
+<?php namespace mnshankar\CSV;
 
 use Illuminate\Support\ServiceProvider;
 
-class CsvServiceProvider extends ServiceProvider {
+class CSVServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,7 +18,7 @@ class CsvServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->package('mnshankar/csv');
+		$this->package('mnshankar/CSV');
 		$this->app['csv'] = $this->app->share(function(){
             return new CSV();
 		});

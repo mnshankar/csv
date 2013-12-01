@@ -1,5 +1,5 @@
 <?php
-namespace mnshankar\Csv;
+namespace mnshankar\CSV;
 use Illuminate\Support\Facades\Facade;
 class CSVFacade extends Facade 
 {

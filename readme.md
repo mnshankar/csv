@@ -8,21 +8,21 @@ using a succint and readable syntax popularised by Laravel 4.
 Add this line to your composer.json file in the `require field:
 
 ```json
-"mnshankar/csv": "dev-master"
+"mnshankar/CSV": "dev-master"
 ```
 
 Then open `app/config/app.php` and add the following line in the `providers` array:
 
 ```php
 'providers' => array(
-    'mnshankar\csv\CsvServiceProvider',
+    'mnshankar\CSV\CSVServiceProvider',
 )
 ```
 and the following in the 'alias' array
 
 ```php
 'alias' => array(
-    'CSV'             =>'mnshankar\Csv\CSVFacade',
+    'CSV'             =>'mnshankar\CSV\CSVFacade',
 )
 ```
 Now, in your application you can work with CSV files like so:

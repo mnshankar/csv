@@ -1,5 +1,5 @@
 <?php
-namespace mnshankar\Csv;
+namespace mnshankar\CSV;
 
 class CSV
 {

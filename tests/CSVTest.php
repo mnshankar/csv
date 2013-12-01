@@ -1,6 +1,6 @@
 <?php
 
-namespace mnshankar\Csv;
+namespace mnshankar\CSV;
 
 class CSVTest extends \PHPUnit_Framework_TestCase
 {
