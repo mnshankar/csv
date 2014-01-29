@@ -87,11 +87,11 @@ class CSV
         foreach ($this->source as $key => $row) {
             if ($this->headerRowExists) {
                 if (empty($header)) { // output header once!
-                    $header = array_keys($row);
+                    $header = array_keys(array_dot($row));
                     fputcsv($this->handle, $header, $this->delimiter, $this->enclosure); // put them in csv
                 }
             }
-            fputcsv($this->handle, $row, $this->delimiter, $this->enclosure);
+            fputcsv($this->handle, array_dot($row), $this->delimiter, $this->enclosure);
         }               
     }
     public function toString()
