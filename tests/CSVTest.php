@@ -1,5 +1,4 @@
 <?php
-
 namespace mnshankar\CSV;
 
 class CSVTest extends \PHPUnit_Framework_TestCase
@@ -8,19 +7,21 @@ class CSVTest extends \PHPUnit_Framework_TestCase
     {
         //return CSV::with($model)->save(storage_path().'/logs/my.csv');
         $arr = array(
-        	array('name'=>'name1', 'address'=>'address1'),
+            array('name'=>'name1', 'address'=>'address1'),
             array('name'=>'name2', 'address'=>'address2'),
-        );        
+        );
+
         $sut = new CSV();
         //ob_start();
         $data =  $sut->with($arr)->setFileHandle()->toString();
         //$data = ob_get_contents();
-       
+
         $this->assertEquals('name,address
 name1,address1
 name2,address2
 ', $data);
     }
+
     /**
      * @expectedException Exception
      */
@@ -28,8 +29,9 @@ name2,address2
     {
         $sut = new CSV();
         $obj = new \stdClass();
-        $row =  $sut->with($obj)->setFileHandle()->getCSV();        
+        $row =  $sut->with($obj)->setFileHandle()->getCSV();
     }
+
     public function testFileReadWithOutHeaderWorksAsExpected()
     {
         $obj = new CSV();
@@ -38,6 +40,7 @@ name2,address2
 name2,address2
 ');
     }
+
     public function testFileReadWithHeaderWorksAsExpected()
     {
         $obj = new CSV();
