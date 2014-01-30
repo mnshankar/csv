@@ -47,4 +47,59 @@ name1,address1
 name2,address2
 ');
     }
+
+    public function testMultiArrayFlattens()
+    {
+        $obj = new CSV();
+        $arr = array(
+            array(
+                'title' => 'Hello world',
+                'comments' => array(
+                    array('title' => 'First'),
+                    array('title' => 'Second'),
+                ),
+            )
+        );
+
+        $flattened_data = <<<EOL
+title,comments.0.title,comments.1.title
+"Hello world",First,Second
+
+EOL;
+
+        $data = $obj->with($arr)->setFileHandle()->toString();
+        $this->assertEquals($data, $flattened_data);
+    }
+
+    public function testMultiArrayFlattensDifferetLengthRows()
+    {
+        $obj = new CSV();
+        $arr = array(
+            array(
+                'title' => 'Hello world',
+                'comments' => array(
+                    array('title' => 'First'),
+                    array('title' => 'Second'),
+                ),
+            ),
+            array(
+                'title' => 'Hello world, again',
+                'comments' => array(
+                    array('title' => 'First'),
+                    array('title' => 'Second'),
+                    array('title' => 'Third'),
+                ),
+            )
+        );
+
+        $flattened_data = <<<EOL
+title,comments.0.title,comments.1.title,comments.2.title
+"Hello world",First,Second
+"Hello world, again",First,Second,Third
+
+EOL;
+
+        $data = $obj->with($arr)->setFileHandle()->toString();
+        $this->assertEquals($data, $flattened_data);
+    }
 }
