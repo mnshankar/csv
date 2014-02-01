@@ -84,13 +84,13 @@ class CSV
     }    
     public function getCSV()
     {
-        foreach ($this->source as $key => $row) {
             if ($this->headerRowExists) {
-                if (empty($header)) { // output header once!
-                    $header = array_keys(array_dot($row));
-                    fputcsv($this->handle, $header, $this->delimiter, $this->enclosure); // put them in csv
-                }
+            $longest_row = max($this->source);
+            $header = array_keys(array_dot($longest_row));
+            fputcsv($this->handle, $header, $this->delimiter, $this->enclosure);
             }
+
+        foreach ($this->source as $key => $row) {
             fputcsv($this->handle, array_dot($row), $this->delimiter, $this->enclosure);
         }               
     }
