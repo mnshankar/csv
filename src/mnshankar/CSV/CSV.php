@@ -59,6 +59,11 @@ class CSV
         return $this;
     }
 
+	public function toArray()
+	{
+		return $this->source;
+	}
+
     public function fromFile($filePath, $headerRowExists = true, $mode = 'r+')
     {
         $from = fopen($filePath, $mode);
@@ -99,7 +104,7 @@ class CSV
         return \Response::make($this->toString(), 200, $headers);
     }
 
-    public function getCSV()
+    private function getCSV()
     {
         if ($this->headerRowExists) {
             $longest_row = max($this->source);
@@ -112,6 +117,7 @@ class CSV
         }
     }
 
+	//this method is used by unit tests. So it is public.
     public function toString()
     {
         ob_start(); // buffer the output ...

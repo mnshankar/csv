@@ -51,6 +51,14 @@ name2,address2
 ');
     }
 
+	public function testFileReadIsReturnedAsCSV()
+	{
+		$obj = new CSV();
+		$data = $obj->with(__DIR__ . '/read_noheader.csv')->toArray();
+		$this->assertEquals($data,array(0=>array('name1'=>'name2',
+			'address1'=>'address2')));
+	}
+
     public function testMultiArrayFlattens()
     {
         $obj = new CSV();

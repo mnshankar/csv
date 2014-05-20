@@ -1,7 +1,7 @@
 ## Easy CSV file manipulation (Read, Write and Download)
 
 This is a simple utility package that helps you work with CSV files
-using a succint and readable syntax popularised by Laravel 4.
+using a succinct and readable syntax popularised by Laravel 4.
 
 ##Installation with Composer
 
@@ -32,11 +32,12 @@ $arr = User::all()->toArray();	//use eloquent to get array of all users in 'user
 
 return CSV::with($arr)->put(storage_path().'/downloads/myusers.csv');	//store as csv in this path
 return CSV::fromArray($arr)->render();	//download as csv
+return CSV::fromFile(storage_path().'/downloads/my.csv')->toArray();    //return csv file as an array
 return CSV::fromFile(storage_path().'/downloads/my.csv')->render('abc.csv'); //render saved csv file as a downloadable document
 return CSV::with(storage_path().'/downloads/my.csv')->render('abc.csv'); //use 'with'.. same as previous
 ```    
 
-Note that the 'with' statement can accept either an array or file path and work accordingly.
+Note that the 'with' statement can accept either an array or file path, and work accordingly.
 
 ### License
 
