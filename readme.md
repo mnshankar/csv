@@ -8,7 +8,7 @@ using a succinct and readable syntax popularised by Laravel 4.
 Add this line to your composer.json file in the `require field:
 
 ```json
-"mnshankar/CSV": "dev-master"
+"mnshankar/csv": "dev-master"
 ```
 
 Then open `app/config/app.php` and add the following line in the `providers` array:
