@@ -1,7 +1,6 @@
 ## Easy CSV file manipulation (Read, Write and Download)
 
-This is a simple utility package that helps you work with CSV files
-using a succinct and readable syntax popularised by Laravel 4.
+This is a simple utility package that helps you work with CSV files.
 
 ##Installation with Composer
 
@@ -10,8 +9,8 @@ Add this line to your composer.json file in the `require field:
 ```json
 "mnshankar/CSV": "dev-master"
 ```
-
-Then open `app/config/app.php` and add the following line in the `providers` array:
+CSV has (optional) support for Laravel, and comes with a Service Provider and Facades for easy integration.
+Open `app/config/app.php` and add the following line in the `providers` array:
 
 ```php
 'providers' => array(
@@ -37,6 +36,12 @@ return CSV::fromFile(storage_path().'/downloads/my.csv')->render('abc.csv'); //r
 return CSV::with(storage_path().'/downloads/my.csv')->render('abc.csv'); //use 'with'.. same as previous
 ```    
 
+(If using without laravel, you have to use 
+```php
+$csv = new mnshankar\CSV\CSV();
+$csv->fromArray($arr)->render();
+etc...
+```
 Note that the 'with' statement can accept either an array or file path, and work accordingly.
 
 ### License
