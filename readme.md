@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mnshankar/csv.png)](https://travis-ci.org/mnshankar/csv)
+
 ## Easy CSV file manipulation (Read, Write and Download)
 
 This is a simple utility package that helps you work with CSV files.
