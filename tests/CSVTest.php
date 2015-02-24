@@ -29,7 +29,7 @@ name2,address2
     {
         $sut = new CSV();
         $obj = new \stdClass();
-        $row =  $sut->with($obj)->setFileHandle()->getCSV();
+        $sut->with($obj)->setFileHandle()->getCSV();
     }
 
     public function testFileReadWithOutHeaderWorksAsExpected()

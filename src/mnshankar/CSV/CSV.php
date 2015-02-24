@@ -59,10 +59,10 @@ class CSV
         return $this;
     }
 
-	public function toArray()
-	{
-		return $this->source;
-	}
+    public function toArray()
+    {
+        return $this->source;
+    }
 
     public function fromFile($filePath, $headerRowExists = true, $mode = 'r+')
     {
@@ -93,31 +93,29 @@ class CSV
 
     public function render($filename = 'export.csv', $mode = 'r+')
     {
-        $headers = array(
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-            'Cache-Control' => 'private',
-            'pragma' => 'cache'
-        );
-        $this->handle = fopen('php://output', $mode);
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: private');
+        header('pragma: cache');
 
-        return \Response::make($this->toString(), 200, $headers);
+        //$this->handle = fopen('php://output', $mode);
+        echo $this->toString();
     }
 
     private function getCSV()
     {
         if ($this->headerRowExists) {
             $longest_row = max($this->source);
-            $header = array_keys(array_dot($longest_row));
+            $header = array_keys(static::dot($longest_row));
             fputcsv($this->handle, $header, $this->delimiter, $this->enclosure);
         }
 
         foreach ($this->source as $key => $row) {
-            fputcsv($this->handle, array_dot($row), $this->delimiter, $this->enclosure);
+            fputcsv($this->handle, static::dot($row), $this->delimiter, $this->enclosure);
         }
     }
 
-	//this method is used by unit tests. So it is public.
+    //this method is used by unit tests. So it is public.
     public function toString()
     {
         ob_start(); // buffer the output ...
@@ -125,5 +123,28 @@ class CSV
         $this->getCSV();
 
         return ob_get_clean(); //then return it as a string
+    }
+
+    /**
+     * Copied from illuminate array to avoid dependence on illuminate/support
+     * Flatten a multi-dimensional associative array with dots.
+     *
+     * @param  array $array
+     * @param  string $prepend
+     * @return array
+     */
+    public static function dot($array, $prepend = '')
+    {
+        $results = array();
+
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
+            } else {
+                $results[$prepend . $key] = $value;
+            }
+        }
+
+        return $results;
     }
 }
