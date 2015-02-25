@@ -15,8 +15,8 @@
         "phpunit/phpunit": "4.0.*"
     },
     "autoload": {
-        "psr-4": {
-            "mnshankar\\CSV\\": "src"
+        "psr-0": {
+            "mnshankar\\CSV": "src\"
         }
     },
     "minimum-stability": "dev"
