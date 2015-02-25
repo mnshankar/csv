@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-0": {
-            "mnshankar\\CSV": "src\"
+            "mnshankar\\CSV": "src/"
         }
     },
     "minimum-stability": "dev"
