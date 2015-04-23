@@ -113,4 +113,12 @@ EOL;
         $data = $obj->with($arr)->setFileHandle()->toString();
         $this->assertEquals($data, $flattened_data);
     }
+
+    public function testHugeNumberOfColumns()
+    {
+        $obj = new CSV();
+        $data = $obj->with(__DIR__ . '/read_hugenumberofcolumns.csv')->toArray();
+        $arr = array(array_fill(0, 2000, 'row'));
+        $this->assertEquals($data, $arr);
+    }
 }
