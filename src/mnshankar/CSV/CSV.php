@@ -72,9 +72,9 @@ class CSV
 
         if ($headerRowExists) {
             // first header row
-            $header = fgetcsv($from, 1000, $this->delimiter, $this->enclosure);
+            $header = fgetcsv($from, 0, $this->delimiter, $this->enclosure);
         }
-        while (($data = fgetcsv($from, 1000, $this->delimiter, $this->enclosure)) !== false) {
+        while (($data = fgetcsv($from, 0, $this->delimiter, $this->enclosure)) !== false) {
             $arr[] = $headerRowExists ? array_combine($header, $data) : $data;
         }
 
