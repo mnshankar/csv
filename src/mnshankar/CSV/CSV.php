@@ -98,10 +98,13 @@ class CSV
         header('Cache-Control: private');
         header('pragma: cache');
 
-        //$this->handle = fopen('php://output', $mode);
         echo $this->toString();
     }
 
+
+    /**
+     * Use PHP's inbuilt fputcsv to generate csv
+     */
     private function getCSV()
     {
         if ($this->headerRowExists) {
@@ -121,7 +124,7 @@ class CSV
         ob_start(); // buffer the output ...
         $this->handle = fopen('php://output', 'r+');
         $this->getCSV();
-
+        fclose($this->handle);
         return ob_get_clean(); //then return it as a string
     }
 
