@@ -30,13 +30,6 @@ class CSV
         return $this;
     }
 
-    public function setFileHandle($stream = 'php://output', $mode = 'r+')
-    {
-        $this->handle = fopen('php://output', $mode);
-
-        return $this;
-    }
-
     public function with($source, $headerRowExists = true, $mode = 'r+')
     {
         if (is_array($source)) { // fromArray
@@ -86,9 +79,9 @@ class CSV
 
     public function put($filePath, $mode = 'w+')
     {
-        $this->handle = fopen($filePath, $mode);
-        fwrite($this->handle, $this->toString());
-        fclose($this->handle);
+        $fileToCreate = fopen($filePath, $mode);
+        fwrite($fileToCreate, $this->toString());
+        fclose($fileToCreate);
     }
 
     public function render($filename = 'export.csv', $mode = 'r+')
@@ -99,6 +92,7 @@ class CSV
         header('pragma: cache');
 
         echo $this->toString();
+        exit;
     }
 
 
@@ -107,25 +101,27 @@ class CSV
      */
     private function getCSV()
     {
+        $outputStream = fopen('php://output', 'r+');
         if ($this->headerRowExists) {
             $longest_row = max($this->source);
             $header = array_keys(static::dot($longest_row));
-            fputcsv($this->handle, $header, $this->delimiter, $this->enclosure);
+            fputcsv($outputStream, $header, $this->delimiter, $this->enclosure);
         }
 
         foreach ($this->source as $key => $row) {
-            fputcsv($this->handle, static::dot($row), $this->delimiter, $this->enclosure);
+            fputcsv($outputStream, static::dot($row), $this->delimiter, $this->enclosure);
         }
+        fclose($outputStream);
     }
 
     //this method is used by unit tests. So it is public.
     public function toString()
     {
         ob_start(); // buffer the output ...
-        $this->handle = fopen('php://output', 'r+');
+
         $this->getCSV();
-        fclose($this->handle);
-        return ob_get_clean(); //then return it as a string
+
+        return ob_get_clean(); //return it as a string
     }
 
     /**

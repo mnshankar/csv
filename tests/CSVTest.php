@@ -13,7 +13,7 @@ class CSVTest extends \PHPUnit_Framework_TestCase
 
         $sut = new CSV();
         //ob_start();
-        $data =  $sut->with($arr)->setFileHandle()->toString();
+        $data =  $sut->with($arr)->toString();
         //$data = ob_get_contents();
 
         $this->assertEquals('name,address
@@ -29,7 +29,7 @@ name2,address2
     {
         $sut = new CSV();
         $obj = new \stdClass();
-        $sut->with($obj)->setFileHandle()->getCSV();
+        $sut->with($obj)->getCSV();
     }
 
     public function testFileReadWithOutHeaderWorksAsExpected()
@@ -78,7 +78,7 @@ title,comments.0.title,comments.1.title
 
 EOL;
 
-        $data = $obj->with($arr)->setFileHandle()->toString();
+        $data = $obj->with($arr)->toString();
         $this->assertEquals($data, $flattened_data);
     }
 
@@ -110,7 +110,7 @@ title,comments.0.title,comments.1.title,comments.2.title
 
 EOL;
 
-        $data = $obj->with($arr)->setFileHandle()->toString();
+        $data = $obj->with($arr)->toString();
         $this->assertEquals($data, $flattened_data);
     }
 
@@ -120,5 +120,19 @@ EOL;
         $data = $obj->with(__DIR__ . '/read_hugenumberofcolumns.csv')->toArray();
         $arr = array(array_fill(0, 2000, 'row'));
         $this->assertEquals($data, $arr);
+    }
+    public function testPutCreatesFile()
+    {
+        $obj = new CSV();
+        $arr = array(
+            array('name'=>'name1', 'address'=>'address1'),
+            array('name'=>'name2', 'address'=>'address2'),
+        );
+
+        $obj->with($arr)
+            ->put('tests'.DIRECTORY_SEPARATOR.'putTest.csv');
+
+        $this->assertFileExists('tests'.DIRECTORY_SEPARATOR.'putTest.csv');
+        unlink('tests'.DIRECTORY_SEPARATOR.'putTest.csv');
     }
 }
