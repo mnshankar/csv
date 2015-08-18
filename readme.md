@@ -9,7 +9,7 @@ This is a simple utility package that helps you work with CSV files.
 Add this line to your composer.json file in the `require field:
 
 ```json
-"mnshankar/CSV": "dev-master"
+"mnshankar/csv": "dev-master"
 ```
 CSV has (optional) support for Laravel, and comes with a Service Provider and Facades for easy integration.
 Open `app/config/app.php` and add the following line in the `providers` array:
