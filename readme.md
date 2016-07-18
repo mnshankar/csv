@@ -24,11 +24,12 @@ $arr = array(
     array('col1'=>'1','col2'=>'2'),
     array('col1'=>'3','col2'=>'4'),
 );
-return $csvObj->fromArray($arr)->render('myfile.csv'); //download as csv
-return $csvObj->with($arr)->put('/downloads/myusers.csv');	//store as csv in this path
-return $csvObj->fromFile('/downloads/my.csv')->toArray();    //return csv file as an array
-return $csvObj->fromFile('/downloads/my.csv')->render('abc.csv'); //render saved csv file as a downloadable document
-return $csvObj->with('/downloads/my.csv')->render('abc.csv'); //use 'with'.. same as previous
+return $csvObj->fromArray($arr)->render('myfile.csv');                  //download as csv;
+return $csvObj->fromArray($arr)->withSeparator()->render('myfile.csv'); //add delimiter for better excel compatibility & download
+return $csvObj->with($arr)->put('/downloads/myusers.csv');	            //store as csv in this path
+return $csvObj->fromFile('/downloads/my.csv')->toArray();               //return csv file as an array
+return $csvObj->fromFile('/downloads/my.csv')->render('abc.csv');       //render saved csv file as a downloadable document
+return $csvObj->with('/downloads/my.csv')->render('abc.csv');           //use 'with'.. same as previous
 ```
 
 ##Laravel 4
