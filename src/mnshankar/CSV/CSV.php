@@ -8,6 +8,7 @@ class CSV
     protected $headerRowExists = true;
     protected $delimiter = ',';
     protected $enclosure = '"';
+    protected $withSeparator = false;
 
     public function setDelimiter($delimiter)
     {
@@ -42,6 +43,16 @@ class CSV
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * Sets the $withSeparator property to true to specify the delimiter in the file
+     * @return $this
+     */
+    public function withSeparator()
+    {
+        $this->withSeparator = true;
         return $this;
     }
 
@@ -91,7 +102,13 @@ class CSV
         header('Cache-Control: private');
         header('pragma: cache');
 
-        echo $this->toString();
+        $response = $this->toString();
+
+        if( $this->withSeparator ){
+            $response = 'sep='.$this->delimiter.PHP_EOL.$response;
+        }
+
+        echo $response;
         exit;
     }
 
