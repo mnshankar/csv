@@ -19,7 +19,9 @@ class CSVServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->package('mnshankar/CSV');
+        if (substr($this->app::VERSION,0,1) == '4') {
+            $this->package('mnshankar/CSV');
+        }
         $this->app['csv'] = $this->app->share(function () {
             return new CSV();
         });
